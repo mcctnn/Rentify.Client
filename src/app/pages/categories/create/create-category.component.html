@@ -1,0 +1,29 @@
+<app-blank pageTitle="Create Category">
+    <div class="card">
+        <div class="card-body">
+            <form #form="ngForm" autocomplete="off" formValidate (ngSubmit)="save(form)">
+                <flexi-stepper [completeBtnText]="'Save'" [loading]="loading()">
+                    <flexi-step flexiStepTitle="Category">
+                        <div class="row form-group">
+                            <div class="col-md-4 col-12">
+                                <div class="form-group mt-2">
+                                    <label>Name<span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" [(ngModel)]="data().name" name="name" >
+                                    <div class="invalid-feedback">Enter a valid name</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <div class="form-group mt-2">
+                                    <label>Description <span class="text-danger">*</span></label>
+                                    <textarea type="text" class="form-control" [(ngModel)]="data().description" name="description" rows="5">                                        
+                                    </textarea>
+                                    <div class="invalid-feedback">Enter a valid description</div>
+                                </div>
+                            </div>                         
+                        </div>
+                    </flexi-step>
+                </flexi-stepper>
+            </form>
+        </div>
+    </div>
+</app-blank>

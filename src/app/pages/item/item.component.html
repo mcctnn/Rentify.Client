@@ -1,0 +1,32 @@
+<app-blank pageTitle="Items">
+    <flexi-grid 
+      [data]="data()!" 
+      [dataBinding]="true" 
+      [total]="total()!"
+      [loading]="loading()"
+      [showCaption]="true"
+      captionTitle="Category List"
+      [showCommandColumn]="true"
+      [commandColumnTemplate]="commandColumnTemplate"    
+      (dataStateChange)="dataStateChange($event)"
+      [captionTemplate]="captionTemplate"
+      [showExportExcelBtn]="true"
+      fontSize="17px"
+      >
+      <ng-template #captionTemplate>
+          <flexi-button routerLink="/items/create" btnSize="small" btnColor="primary" title="Create Item" flexiTooltip btnIcon="add" />
+      </ng-template>
+    
+      <flexi-grid-column field="name" title="Name" />
+      <flexi-grid-column field="itemImageUrl" title="Image" />   
+      <flexi-grid-column field="description" title="Description" />  
+      <flexi-grid-column field="pricePerDay" title="Price" /> 
+      <flexi-grid-column field="categoryId" title="CategoryId" /> 
+      <flexi-grid-column field="location" title="Location" /> 
+      <flexi-grid-column field="isAvailable" title="Available" />   
+    
+      <ng-template #commandColumnTemplate let-item>
+          <flexi-button btnSize="x-small" btnIcon="delete" btnColor="danger" title="Sil" flexiTooltip (click)="delete(item)"/>
+      </ng-template>
+    </flexi-grid>
+</app-blank>
