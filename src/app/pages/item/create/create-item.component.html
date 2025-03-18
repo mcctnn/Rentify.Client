@@ -1,15 +1,16 @@
-<app-blank pageTitle="Create Item">
+<app-blank [pageTitle]="pageTitle()">
     <div class="card">
         <div class="card-body">
             <form #form="ngForm" autocomplete="off" formValidate (ngSubmit)="save(form)">
-                <flexi-stepper [completeBtnText]="'Save'" [loading]="loading()">
+                <flexi-stepper [completeBtnText]="id()? 'Update':'Create'" [loading]="loading()">
                     <flexi-step flexiStepTitle="Item Details">
                         <div class="row form-group">
                             <!-- Name -->
                             <div class="col-md-4 col-12">
                                 <div class="form-group mt-2">
                                     <label>Name <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" [(ngModel)]="data().name" name="name" required>
+                                    <input type="text" class="form-control" [(ngModel)]="data().name" name="name"
+                                        required>
                                     <div class="invalid-feedback">Enter a valid name</div>
                                 </div>
                             </div>
@@ -18,7 +19,8 @@
                             <div class="col-md-4 col-12">
                                 <div class="form-group mt-2">
                                     <label>Description <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" [(ngModel)]="data().description" name="description" rows="5" required></textarea>
+                                    <textarea class="form-control" [(ngModel)]="data().description" name="description"
+                                        rows="5" required></textarea>
                                     <div class="invalid-feedback">Enter a valid description</div>
                                 </div>
                             </div>
@@ -26,31 +28,48 @@
                             <!-- Category Selection -->
                             <div class="col-md-4 col-12">
                                 <div class="form-group mt-2">
-                                  <label>Category <span class="text-danger">*</span></label>
-                                  <select class="form-control" [(ngModel)]="data().categoryId" name="categoryId" required #category="ngModel">
-                                    <option value="" disabled [selected]="data().categoryId == null">Select a category</option>
-                                    <option *ngFor="let category of categories()" [value]="category.id">
-                                      {{ category.name }}
-                                    </option>
-                                  </select>
-                                  <div *ngIf="category.invalid && category.touched" class="invalid-feedback">Please select a category</div>
+                                    <label>Category <span class="text-danger">*</span></label>
+                                    <select class="form-control" [(ngModel)]="data().categoryId" name="categoryId"
+                                        required #category="ngModel">
+                                        <option value="" disabled [selected]="data().categoryId == null">Select a
+                                            category</option>
+                                        <option *ngFor="let category of categories()" [value]="category.id">
+                                            {{ category.name }}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="category.invalid && category.touched" class="invalid-feedback">Please
+                                        select a category</div>
                                 </div>
-                              </div>
-                              
+                            </div>
+
                             <!-- Price Per Day -->
                             <div class="col-md-4 col-12">
                                 <div class="form-group mt-2">
                                     <label>Price Per Day ($) <span class="text-danger">*</span></label>
-                                    <input type="number" class="form-control" [(ngModel)]="data().pricePerDay" name="pricePerDay" required>
+                                    <input type="number" class="form-control" [(ngModel)]="data().pricePerDay"
+                                        name="pricePerDay" required>
                                     <div class="invalid-feedback">Enter a valid price</div>
                                 </div>
                             </div>
 
-                            <!-- Item Image URL -->
-                            <div class="col-md-4 col-12">
+                            <!-- Resim URL'si alanı sadece yüklenen resim olduğunda görünür -->
+                            <div class="col-md-4 col-12" *ngIf="data().itemImageUrl">
                                 <div class="form-group mt-2">
                                     <label>Image URL</label>
-                                    <input type="text" class="form-control" [(ngModel)]="data().itemImageUrl" name="itemImageUrl">
+                                    <input type="text" class="form-control" [(ngModel)]="data().itemImageUrl"
+                                        name="itemImageUrl" readonly>
+                                </div>
+                            </div>
+
+
+                            <!-- Resim Yükleme -->
+                            <div class="col-md-4 col-12">
+                                <div class="form-group mt-2">
+                                    <label>Upload Image</label>
+                                    <input type="file" class="form-control" (change)="onFileSelected($event)"
+                                        accept="image/*">
+                                    <button type="button" class="btn btn-primary mt-2" (click)="uploadImage()">Upload
+                                        Image</button>
                                 </div>
                             </div>
 
@@ -58,7 +77,8 @@
                             <div class="col-md-4 col-12">
                                 <div class="form-group mt-2">
                                     <label>Location</label>
-                                    <input type="text" class="form-control" [(ngModel)]="data().location" name="location">
+                                    <input type="text" class="form-control" [(ngModel)]="data().location"
+                                        name="location">
                                 </div>
                             </div>
 

@@ -25,6 +25,10 @@ export const routes: Routes = [
                     {
                         path:"create",
                         loadComponent:()=>import("./pages/categories/create/create-category.component").then((m)=>m.CreateCategoryComponent)
+                    },
+                    {
+                        path:"edit/:id",
+                        loadComponent:()=>import("./pages/categories/create/create-category.component").then((m)=>m.CreateCategoryComponent)
                     }
                 ]        
             },
@@ -37,6 +41,10 @@ export const routes: Routes = [
                     },
                     {
                         path:"create",
+                        loadComponent:()=>import("./pages/item/create/create-item.component").then((m)=>m.CreateItemComponent)
+                    },
+                    {
+                        path:"edit/:id",
                         loadComponent:()=>import("./pages/item/create/create-item.component").then((m)=>m.CreateItemComponent)
                     }
                 ]
